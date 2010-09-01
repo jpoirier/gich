@@ -1,6 +1,6 @@
 include $(GOROOT)/src/Make.inc
 
-all : giche
+all: giche
 
 TARG=giche
 

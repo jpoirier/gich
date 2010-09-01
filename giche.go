@@ -22,8 +22,8 @@ var hFlag bool
 var helpFlag bool
 var winFlag bool = false
 var allMsg string = "List all executable instances found rather than just the first one."
-var statusMsg string = "Output 'Found' if any of the executables were found and 'None' if none were found"
-var helpMsg string = "Print this usage message"
+var statusMsg string = "Output 'Found' if any of the executables were found and 'None' if none were found."
+var helpMsg string = "Print this usage message."
 
 func init() {
 	flag.BoolVar(&aFlag, "a", false, allMsg)
@@ -75,15 +75,14 @@ inner:		for _, path := range paths {
 								break outer
 							}
 							if aFlag {
-								userMsg += file + eol
-								continue
+								userMsg += ff + eol
+								continue inner
 							}
-							userMsg += file + eol
+							userMsg += ff + eol
 							continue outer
 						}
+						continue
 					}
-				}
-				for _, e := range exts {
 					ff := path + sepPath + file + e
 					if chkStat(ff) {
 						if sFlag {
@@ -91,10 +90,10 @@ inner:		for _, path := range paths {
 							break outer
 						}
 						if aFlag {
-							userMsg += (file + eol)
+							userMsg += ff + eol
 							continue
 						}
-						userMsg += (file + eol)
+						userMsg += ff + eol
 						continue outer
 					}
 				}
@@ -123,21 +122,28 @@ inner:		for _, path := range paths {
 
 func prolog(files []string) {
 	path := os.Getenv("PATH")
-
-	pathext := os.Getenv("PATHEXT")
-	exts := []string{}
-	if pathext != "" {
-		exts = strings.Split(strings.ToLower(pathext), sepChar, -1)
-		for i, e := range exts {
-			if len(e) < 1 || e[0] != '.' {
-				exts[i] = `.` + e
-			}
-		}
+	if path == "" {
+		return
 	}
 	paths := []string{}
-	if path != "" {
-		paths = strings.Split(path, sepChar, -1)
+	exts := []string{}
+	if winFlag {
+//		path = strings.Replace(path, "\\", "\\\\", -1)
+		pathext := os.Getenv("PATHEXT")
+		if pathext != "" {
+			exts = strings.Split(strings.ToLower(pathext), sepChar, -1)
+			for i, e := range exts {
+				if len(e) < 1 || e[0] != '.' {
+					exts[i] = `.` + e
+				}
+			}
+		}
+//		paths = strings.Split(path, sepChar, -1)
+//		for i, p := range paths {
+//			paths[i] = "\"" + p + "\""
+//		}
 	}
+	paths = strings.Split(path, sepChar, -1)
 	process(files, paths, exts)
 }
 
