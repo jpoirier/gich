@@ -8,44 +8,28 @@ import (
 	"os"
 	"syscall"
 	"strings"
-	"time"
 )
-
-var compTime *time.Time = time.LocalTime()
-var version string = "1.1"
-var sepChar string = `:`
-var sepPath string = `/`
-var eol string = "\n"
-var aFlag bool
-var sFlag bool
-var hFlag bool
-var helpFlag bool
-var winFlag bool = false
-var allMsg string = "List all executable instances found rather than just the first one."
-var statusMsg string = "Output 'Found' if any of the executables were found and 'None' if none were found."
-var helpMsg string = "Print this usage message."
 
 func init() {
 	flag.BoolVar(&aFlag, "a", false, allMsg)
-	flag.BoolVar(&sFlag, "s", false, statusMsg)
-	flag.BoolVar(&hFlag, "h", false, helpMsg)
-	flag.BoolVar(&helpFlag, "help", false, helpMsg)
+	flag.BoolVar(&sFlag, "s", false, statMsg)
+	flag.BoolVar(&hFlag, "h", false, prntMsg)
+	flag.BoolVar(&helpFlag, "help", false, prntMsg)
 	if syscall.OS == "windows" {
 		sepChar = `;`
+		// TODO: Is this necessary? windows handles forward slashes
+		// to what level, ie is it different between user and
+		// kernel level, and does it matter?
 		sepPath = `\`
+		// TODO: Is this necessary? Any difference between
+		// cmd.exe and command.com?
 		eol = "\r\n"
 		winFlag = true
 	}
 }
 
 var usage = func() {
-	fmt.Fprintf(os.Stderr, "Giche  a cross platform which tool written in Go\n")
-	fmt.Fprintf(os.Stderr, "v%s, %s\n", version, compTime.Format(time.RFC822))
-	fmt.Fprintf(os.Stderr, "\nUsage: %s [-l|-s|-h|-help] file ... \n", os.Args[0])
-	fmt.Fprintf(os.Stderr, "\t-l  %s \n", allMsg)
-	fmt.Fprintf(os.Stderr, "\t-s  %s \n", statusMsg)
-	fmt.Fprintf(os.Stderr, "\t-h  %s \n", helpMsg)
-	fmt.Fprintf(os.Stderr, "\t-help  %s \n", helpMsg)
+	fmt.Fprintf(os.Stderr, helpMsg)
 	os.Exit(0)
 }
 
@@ -60,31 +44,22 @@ func chkStat(file string) bool {
 func process(files, paths, exts []string) {
 	userMsg := ""
 outer:	for _, file := range files {
+//fmt.Println("userMsg : ", userMsg)
+//fmt.Println("file: ", file)
 		if strings.Index(file, `\`) >= 0 || strings.Index(file, `/`) >= 0 {
 			continue
 		}
 inner:		for _, path := range paths {
+//fmt.Println("path: ", path)
 			if len(exts) != 0 {
+//fmt.Println("if exts: ")
 				f := strings.ToLower(file)
 				for _, e := range exts {
-					if strings.HasSuffix(f, e) {
-						ff := path + sepPath + file
-						if chkStat(ff) {
-							if sFlag {
-								userMsg = "Found"
-								break outer
-							}
-							if aFlag {
-								userMsg += ff + eol
-								continue inner
-							}
-							userMsg += ff + eol
-							continue outer
-						}
-						continue
+					ff := path + sepPath + file
+					if !strings.HasSuffix(f, e) {
+						ff += e
 					}
-					ff := path + sepPath + file + e
-					if chkStat(ff) {
+					if _, err := os.Stat(ff); err == nil {
 						if sFlag {
 							userMsg = "Found"
 							break outer
@@ -99,13 +74,16 @@ inner:		for _, path := range paths {
 				}
 			} else {
 				f := path + sepPath + file
-				if chkStat(f) {
+//fmt.Println("f: ", f)
+				if _, err := os.Stat(f); err == nil {
 					if sFlag {
+//fmt.Println("sFlag ")
 						userMsg = "Found"
 						break outer
 					}
 					if aFlag {
 						userMsg += (f + eol)
+//fmt.Println("aFlag ")
 						continue
 					}
 					userMsg += f + eol
@@ -128,21 +106,26 @@ func prolog(files []string) {
 	paths := []string{}
 	exts := []string{}
 	if winFlag {
-//		path = strings.Replace(path, "\\", "\\\\", -1)
+// TODO: Check for functionality differences between the
+// DOS (command.com) and NT (cmd.exe) shells
+//		path = strings.Replace(path, `\`, `\\`, -1)
 		pathext := os.Getenv("PATHEXT")
 		if pathext != "" {
 			exts = strings.Split(strings.ToLower(pathext), sepChar, -1)
 			for i, e := range exts {
 				if e == "" || e[0] != '.' {
-					exts[i] = `.` + e
+					exts[i] = "." + e
 				}
 			}
 		}
+// TODO: Check for functionality differences between the
+// DOS (command.com) and NT (cmd.exe) shells
 //		paths = strings.Split(path, sepChar, -1)
 //		for i, p := range paths {
-//			paths[i] = "\"" + p + "\""
+//			paths[i] = `"` + p + `"`
 //		}
 	}
+//fmt.Println("----- exts ", exts)
 	paths = strings.Split(path, sepChar, -1)
 	process(files, paths, exts)
 }

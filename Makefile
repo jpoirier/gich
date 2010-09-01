@@ -1,10 +1,20 @@
 include $(GOROOT)/src/Make.inc
 
-all: giche
+ifeq ($(GOOS),windows)
+EXT=.exe
+endif
 
 TARG=giche
 
 GOFILES=\
-	giche.go \
+	vars.go\
+	giche.go\
+
+all:
 
 include $(GOROOT)/src/Make.cmd
+
+test:
+	$(QUOTED_GOBIN)/$(GC) -o giche_test.$O giche_test.go vars.go
+	$(QUOTED_GOBIN)/$(LD) -o giche_test$(EXE) giche_test.$O
+

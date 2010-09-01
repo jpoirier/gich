@@ -9,6 +9,10 @@ Compiling
 ---------
     make
 
+Testing
+-------
+    make test
+
 Usage
 -----
     giche [-l|-s|-h|-help] file ...
