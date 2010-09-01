@@ -7,9 +7,7 @@ Description
 
 Compiling
 ---------
-    Run: make
-
-    Test and profiling: make test
+    make
 
 Usage
 -----
