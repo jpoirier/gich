@@ -1,17 +1,21 @@
 Description
 ------------
-     The which utility takes a list of command names and searches the path for each executable file that would be run had
-     these commands actually been invoked.
-
-     The following options are available:
-
-     -a      List all instances of executables found (instead of just the first one of each).
-
-     -s      No output, just return 0 if any of the executables are found, or 1 if none are found.
+    Giche  a which tool written in Go
+    A which utility takes a list of command names and searches the path for each executable file that would be run had
+    these commands actually been invoked.
 
 Compiling
 ---------
+    Run: make
 
+    Test and profiling: make test
 
 Usage
 -----
+    giche [-l|-s|-h|-help] file ...
+        -l  List all executable instances found rather than just the first one.
+        -s  Output 'Found' if any of the executables were found and 'None' if none were found
+        -h  Print this usage message
+        -help  Print this usage message
+
+

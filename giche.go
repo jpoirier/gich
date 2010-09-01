@@ -1,14 +1,5 @@
-/* giche a "which" utility for windows.
+/* giche a which tool written in Go
  *
- * This package provides and interface to the storage containers and
- * routines in gocache.  The storage routines work with anything that
- * conforms to the Entity interface.  By default the Item type will be
- * used for storage.  The package also loads data from a fixture and
- * writes it's current data into a fixture.
- *
- * Copyright 2010 by Joseph D Poirier. All rights reserved.
- * Use of this source code is governed by a BSD-style
- * license that can be found in the LICENSE file.
  */
 package main
 
@@ -49,7 +40,7 @@ func init() {
 }
 
 var usage = func() {
-	fmt.Fprintf(os.Stderr, "Giche - which written in Go\n")
+	fmt.Fprintf(os.Stderr, "Giche  a which tool written in Go\n")
 	fmt.Fprintf(os.Stderr, "v%s, %s\n", version, compTime.Format(time.RFC822))
 	fmt.Fprintf(os.Stderr, "\nUsage: %s [-l|-s|-h|-help] file ... \n", os.Args[0])
 	fmt.Fprintf(os.Stderr, "\t-l  %s \n", allMsg)
