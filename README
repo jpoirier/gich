@@ -1,6 +1,7 @@
 Description
 ------------
-    Giche  a which tool written in Go
+    Giche  a cross platform which tool written in Go
+
     A which utility takes a list of command names and searches the path for each executable file that would be run had
     these commands actually been invoked.
 
