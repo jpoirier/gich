@@ -1,6 +1,5 @@
-/* giche  a cross platform which tool written in Go
- *
- */
+// giche  a cross platform which tool written in Go
+
 package main
 
 import (
@@ -61,8 +60,6 @@ func chkStat(file string) bool {
 func process(files, paths, exts []string) {
 	userMsg := ""
 outer:	for _, file := range files {
-//fmt.Println("userMsg: ", userMsg)
-//fmt.Println("file: ", file)
 		if strings.Index(file, `\`) >= 0 || strings.Index(file, `/`) >= 0 {
 			continue
 		}
