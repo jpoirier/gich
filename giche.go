@@ -12,7 +12,7 @@ import (
 )
 
 var compTime *time.Time = time.LocalTime()
-var version string = "1.0"
+var version string = "1.1"
 var sepChar string = `:`
 var sepPath string = `/`
 var eol string = "\n"
@@ -133,7 +133,7 @@ func prolog(files []string) {
 		if pathext != "" {
 			exts = strings.Split(strings.ToLower(pathext), sepChar, -1)
 			for i, e := range exts {
-				if len(e) < 1 || e[0] != '.' {
+				if e == "" || e[0] != '.' {
 					exts[i] = `.` + e
 				}
 			}
