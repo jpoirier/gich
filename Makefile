@@ -10,6 +10,8 @@ GOFILES=\
 	vars.go\
 	giche.go\
 
+CLEANFILES+=giche_test$(EXE)
+
 all:
 
 include $(GOROOT)/src/Make.cmd

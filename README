@@ -20,5 +20,3 @@ Usage
         -s  Output 'Found' if any of the executables were found and 'None' if none were found
         -h  Print this usage message
         -help  Print this usage message
-
-
