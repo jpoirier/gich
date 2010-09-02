@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"fmt"
 	"syscall"
+//	"testing"
 )
 
 //	cmd, err := exec.Run( "./test", argv, "", nil, exec.DevNull, exec.Pipe, exec.DevNull )
@@ -18,11 +19,12 @@ var exeExt string = func () string {
 
 func TestFlagH() {
 	//             stdin, stdout, stderr
-	cmd, err := exec.Run("./giche"+exeExt, []string{"-h"}, nil, "", exec.DevNull, exec.Pipe, exec.Pipe)
+	c := "giche" + exeExt
+	cmd, err := exec.Run(c, []string{c, "-h"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-h: " + err.String())
 	}
-	buf, err := ioutil.ReadAll(cmd.Stderr)
+	buf, err := ioutil.ReadAll(cmd.Stdout)
 	if err != nil {
 		panic("-h read:" + err.String())
 	}
@@ -36,11 +38,12 @@ func TestFlagH() {
 
 func TestFlagHelp() {
 	//             stdin, stdout, stderr
-	cmd, err := exec.Run("./giche"+exeExt, []string{"-help"}, nil, "", exec.DevNull, exec.Pipe, exec.Pipe)
+	c := "./giche" + exeExt
+	cmd, err := exec.Run(c, []string{c, "-help"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-help: " + err.String())
 	}
-	buf, err := ioutil.ReadAll(cmd.Stderr)
+	buf, err := ioutil.ReadAll(cmd.Stdout)
 	if err != nil {
 		panic("-help read:" + err.String())
 	}
@@ -54,11 +57,12 @@ func TestFlagHelp() {
 
 func TestNoArgs() {
 	//             stdin, stdout, stderr
-	cmd, err := exec.Run("./giche"+exeExt, []string{""}, nil, "", exec.DevNull, exec.Pipe, exec.Pipe)
+	c := "giche" + exeExt
+	cmd, err := exec.Run(c, []string{c}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("NoArgs: " + err.String())
 	}
-	buf, err := ioutil.ReadAll(cmd.Stderr)
+	buf, err := ioutil.ReadAll(cmd.Stdout)
 	if err != nil {
 		panic("NoArgs read:" + err.String())
 	}
@@ -72,15 +76,16 @@ func TestNoArgs() {
 
 func TestInvalidArg() {
 	//             stdin, stdout, stderr
-	cmd, err := exec.Run("./giche"+exeExt, []string{"ZZZ"}, nil, "", exec.DevNull, exec.Pipe, exec.Pipe)
+	c := "giche" + exeExt
+	cmd, err := exec.Run(c, []string{c, "ZZZ"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("InvalidArg: " + err.String())
 	}
-	buf, err := ioutil.ReadAll(cmd.Stderr)
+	buf, err := ioutil.ReadAll(cmd.Stdout)
 	if err != nil {
 		panic("InvalidArg read:" + err.String())
 	}
-	if string(buf) != helpMsg {
+	if string(buf) != "" {
 		panic("InvalidArg helpMsg: got " + string(buf))
 	}
 	if err = cmd.Close(); err != nil {
@@ -91,11 +96,12 @@ func TestInvalidArg() {
 /*
 func TestFlagA() {
 	//             stdin, stdout, stderr
-	cmd, err := exec.Run("./giche"+exeExt, []string{"-a"}, nil, "", exec.DevNull, exec.Pipe, exec.Pipe)
+	c := "giche" + exeExt
+	cmd, err := exec.Run("./giche"+exeExt, []string{"-a"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-a: " + err.String())
 	}
-	buf, err := ioutil.ReadAll(cmd.Stderr)
+	buf, err := ioutil.ReadAll(cmd.Stdout)
 	if err != nil {
 		panic("-a read:" + err.String())
 	}
@@ -106,37 +112,67 @@ func TestFlagA() {
 		panic("-a close: " + err.String())
 	}
 }
+*/
 
-func TestFlagS() {
+func TestFlagS1() {
 	//             stdin, stdout, stderr
-	cmd, err := exec.Run("./giche"+exeExt, []string{"-s"}, nil, "", exec.DevNull, exec.DevNull, exec.Pipe)
+	c := "giche" + exeExt
+	cmd, err := exec.Run(c, []string{c, "-s", "invalid_arg"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-s: " + err.String())
 	}
-	buf, err := ioutil.ReadAll(cmd.Stderr)
+	buf, err := ioutil.ReadAll(cmd.Stdout)
 	if err != nil {
 		panic("-s read:" + err.String())
 	}
-	if string(buf) != helpMsg {
-		panic("-s helpMsg: got " + string(buf))
+	if string(buf) != "None" {
+		panic("-s : got " + string(buf))
 	}
 	if err = cmd.Close(); err != nil {
 		panic("-s close: " + err.String())
 	}
 }
-*/
 
-func main() {
-	TestFlagH()
-	TestFlagHelp()
-	TestNoArgs()
-	TestInvalidArg()
-//	TestFlagA()
-//	TestFlagS()
-	fmt.Println("PASS")
+func TestFlagS2() {
+	//             stdin, stdout, stderr
+	c := "giche" + exeExt
+	cmd, err := exec.Run(c, []string{c, "-s", "cat"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
+	if err != nil {
+		panic("-s: " + err.String())
+	}
+	buf, err := ioutil.ReadAll(cmd.Stdout)
+	if err != nil {
+		panic("-s read:" + err.String())
+	}
+	if string(buf) != "Found" {
+		panic("-s : got " + string(buf))
+	}
+	if err = cmd.Close(); err != nil {
+		panic("-s close: " + err.String())
+	}
 }
 
-//func BenchmarkCrc(b *testing.B) {
+
+func TestMisc() {
+	//             stdin, stdout, stderr
+	c := "giche" + exeExt
+	cmd, err := exec.Run(c, []string{c, "cat"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
+	if err != nil {
+		panic("TestMisc: " + err.String())
+	}
+	buf, err := ioutil.ReadAll(cmd.Stdout)
+	if err != nil {
+		panic("TestMisc read:" + err.String())
+	}
+	if string(buf) != "/bin/cat\n" {
+		panic("TestMisc cat: got " + string(buf))
+	}
+	if err = cmd.Close(); err != nil {
+		panic("-s close: " + err.String())
+	}
+}
+
+  //func Benchmark() {
 //	b.StopTimer()
 
 //	// data creation
@@ -156,3 +192,21 @@ func main() {
 //		_, _ = Crc(data, tables[i], (6114), crcSzs[i])
 //	}
 //}
+
+func main() {
+	TestFlagH()
+	TestFlagHelp()
+	TestNoArgs()
+	TestInvalidArg()
+	TestMisc()
+//	if syscall.OS == "windows" {
+//	} else {
+
+//	}
+//	TestFlagA()
+	TestFlagS1()
+	TestFlagS2()
+	fmt.Println("PASS")
+}
+
+

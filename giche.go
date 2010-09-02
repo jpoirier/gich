@@ -29,7 +29,7 @@ func init() {
 }
 
 var usage = func() {
-	fmt.Fprintf(os.Stderr, helpMsg)
+	fmt.Print(helpMsg)
 	os.Exit(0)
 }
 
@@ -44,7 +44,7 @@ func chkStat(file string) bool {
 func process(files, paths, exts []string) {
 	userMsg := ""
 outer:	for _, file := range files {
-//fmt.Println("userMsg : ", userMsg)
+//mt.Println("userMsg : ", userMsg)
 //fmt.Println("file: ", file)
 		if strings.Index(file, `\`) >= 0 || strings.Index(file, `/`) >= 0 {
 			continue
@@ -95,7 +95,7 @@ inner:		for _, path := range paths {
 	if sFlag && userMsg == "" {
 		userMsg = "None"
 	}
-	fmt.Println(userMsg)
+	fmt.Print(userMsg)
 }
 
 func prolog(files []string) {
