@@ -15,8 +15,16 @@ Testing
 
 Usage
 -----
-    giche [-l|-s|-h|-help] file ...
-        -l  List all executable instances found rather than just the first one.
+    giche [-a|-s|-h|-help] file ...
+        -a  List all executable instances found rather than just the first one.
         -s  Output 'Found' if any of the executables were found and 'None' if none were found
         -h  Print this usage message
         -help  Print this usage message
+
+Examples
+--------
+    nix:
+        > giche -a ls cat sh
+
+    windows:
+        > giche -a ping calc cmd
