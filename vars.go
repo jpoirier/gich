@@ -24,7 +24,7 @@ var (
 	compMsg = compTime.Format(time.RFC822)
 	helpMsg = "Giche " + "(v" + VERSION + ")  " +
 			"a cross platform which tool written in Go\n" +
-			"Usage: insert [-l|-s|-h|-help] file ... \n" +
+			"Usage: giche [-l|-s|-h|-help] file ... \n" +
 			"\t-l  "   + allMsg   + " \n" +
 			"\t-s  "   + statMsg  + " \n" +
 			"\t-h  "   + prntMsg  + " \n" +
