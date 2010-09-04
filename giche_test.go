@@ -1,3 +1,8 @@
+// giche_test  test various commands
+// Copyright ¬© 2010 Joseph D Poirier
+// Distributable under the terms of The New BSD License
+// that can be found in the LICENSE file.
+
 package main
 
 import (
@@ -5,10 +10,7 @@ import (
 	"io/ioutil"
 	"fmt"
 	"syscall"
-//	"testing"
 )
-
-//	cmd, err := exec.Run( "./test", argv, "", nil, exec.DevNull, exec.Pipe, exec.DevNull )
 
 var exeExt string = func () string {
 			if syscall.OS == "windows" {
@@ -172,6 +174,7 @@ func TestMisc() {
 	}
 }
 
+// TODO: add benchmark/profiling
   //func Benchmark() {
 //	b.StopTimer()
 
