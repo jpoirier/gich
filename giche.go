@@ -1,6 +1,6 @@
 // giche  a cross platform which tool written in Go
 
-// Copyright ¬© 2010 Joseph D Poirier
+// Copyright ÂŹÂŠ 2010 Joseph D Poirier
 // Distributable under the terms of The New BSD License
 // that can be found in the LICENSE file.
 
@@ -35,14 +35,6 @@ func init() {
 var usage = func() {
 	fmt.Print(helpMsg)
 	os.Exit(0)
-}
-
-func chkStat(file string) bool {
-	_, err := os.Stat(file)
-	if err != nil {
-		return false
-	}
-	return true
 }
 
 func process(files, paths, exts []string) {
