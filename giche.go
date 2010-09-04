@@ -1,6 +1,6 @@
 // giche  a cross platform which tool written in Go
 
-// Copyright ÂŹÂŠ 2010 Joseph D Poirier
+// Copyright (c) 2010 Joseph D Poirier
 // Distributable under the terms of The New BSD License
 // that can be found in the LICENSE file.
 
