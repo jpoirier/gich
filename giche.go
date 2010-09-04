@@ -1,5 +1,8 @@
 // giche  a cross platform which tool written in Go
 
+// Copyright ¬© 2010 Joseph D Poirier
+// Distributable under the terms of The New BSD License.
+
 package main
 
 import (
@@ -44,15 +47,11 @@ func chkStat(file string) bool {
 func process(files, paths, exts []string) {
 	userMsg := ""
 outer:	for _, file := range files {
-//mt.Println("userMsg : ", userMsg)
-//fmt.Println("file: ", file)
 		if strings.Index(file, `\`) >= 0 || strings.Index(file, `/`) >= 0 {
 			continue
 		}
 inner:		for _, path := range paths {
-//fmt.Println("path: ", path)
 			if len(exts) != 0 {
-//fmt.Println("if exts: ")
 				f := strings.ToLower(file)
 				for _, e := range exts {
 					ff := path + sepPath + file
@@ -74,16 +73,13 @@ inner:		for _, path := range paths {
 				}
 			} else {
 				f := path + sepPath + file
-//fmt.Println("f: ", f)
 				if _, err := os.Stat(f); err == nil {
 					if sFlag {
-//fmt.Println("sFlag ")
 						userMsg = "Found"
 						break outer
 					}
 					if aFlag {
 						userMsg += (f + eol)
-//fmt.Println("aFlag ")
 						continue
 					}
 					userMsg += f + eol
@@ -125,7 +121,6 @@ func prolog(files []string) {
 //			paths[i] = `"` + p + `"`
 //		}
 	}
-//fmt.Println("----- exts ", exts)
 	paths = strings.Split(path, sepChar, -1)
 	process(files, paths, exts)
 }
