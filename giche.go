@@ -1,4 +1,4 @@
-// giche  a cross platform which tool written in Go
+// gich  a cross platform which tool written in Go
 
 // Copyright (c) 2010 Joseph D Poirier
 // Distributable under the terms of The New BSD License

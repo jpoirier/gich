@@ -1,4 +1,4 @@
-// giche  a cross platform which tool written in Go
+// gich  a cross platform which tool written in Go
 
 // Copyright (c) 2010 Joseph D Poirier
 // Distributable under the terms of The New BSD License
@@ -26,9 +26,9 @@ var (
 	statMsg = "Output 'Found' if any of the executables were found and 'None' if none were found."
 	prntMsg = "Print this usage message."
 	compMsg = compTime.Format(time.RFC822)
-	helpMsg = "Giche " + "(v" + VERSION + ")  " +
+	helpMsg = "gich " + "(v" + VERSION + ")  " +
 			"a cross platform which tool written in Go\n" +
-			"Usage: giche [-l|-s|-h|-help] file ... \n" +
+			"Usage: gich [-l|-s|-h|-help] file ... \n" +
 			"\t-l  "   + allMsg   + " \n" +
 			"\t-s  "   + statMsg  + " \n" +
 			"\t-h  "   + prntMsg  + " \n" +

@@ -1,4 +1,4 @@
-// giche_test  test various commands
+// gich_test  test various commands
 //
 // Copyright (c) 2010 Joseph D Poirier
 // Distributable under the terms of The New BSD License
@@ -22,7 +22,7 @@ var exeExt string = func () string {
 
 func TestFlagH() {
 	//             stdin, stdout, stderr
-	c := "giche" + exeExt
+	c := "gich" + exeExt
 	cmd, err := exec.Run(c, []string{c, "-h"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-h: " + err.String())
@@ -41,7 +41,7 @@ func TestFlagH() {
 
 func TestFlagHelp() {
 	//             stdin, stdout, stderr
-	c := "./giche" + exeExt
+	c := "./gich" + exeExt
 	cmd, err := exec.Run(c, []string{c, "-help"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-help: " + err.String())
@@ -60,7 +60,7 @@ func TestFlagHelp() {
 
 func TestNoArgs() {
 	//             stdin, stdout, stderr
-	c := "giche" + exeExt
+	c := "gich" + exeExt
 	cmd, err := exec.Run(c, []string{c}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("NoArgs: " + err.String())
@@ -79,7 +79,7 @@ func TestNoArgs() {
 
 func TestInvalidArg() {
 	//             stdin, stdout, stderr
-	c := "giche" + exeExt
+	c := "gich" + exeExt
 	cmd, err := exec.Run(c, []string{c, "ZZZ"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("InvalidArg: " + err.String())
@@ -99,8 +99,8 @@ func TestInvalidArg() {
 /*
 func TestFlagA() {
 	//             stdin, stdout, stderr
-	c := "giche" + exeExt
-	cmd, err := exec.Run("./giche"+exeExt, []string{"-a"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
+	c := "gich" + exeExt
+	cmd, err := exec.Run("./gich"+exeExt, []string{"-a"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-a: " + err.String())
 	}
@@ -119,7 +119,7 @@ func TestFlagA() {
 
 func TestFlagS1() {
 	//             stdin, stdout, stderr
-	c := "giche" + exeExt
+	c := "gich" + exeExt
 	cmd, err := exec.Run(c, []string{c, "-s", "invalid_arg"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-s: " + err.String())
@@ -138,7 +138,7 @@ func TestFlagS1() {
 
 func TestFlagS2() {
 	//             stdin, stdout, stderr
-	c := "giche" + exeExt
+	c := "gich" + exeExt
 	cmd, err := exec.Run(c, []string{c, "-s", "cat"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-s: " + err.String())
@@ -158,7 +158,7 @@ func TestFlagS2() {
 
 func TestMisc() {
 	//             stdin, stdout, stderr
-	c := "giche" + exeExt
+	c := "gich" + exeExt
 	cmd, err := exec.Run(c, []string{c, "cat"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("TestMisc: " + err.String())
