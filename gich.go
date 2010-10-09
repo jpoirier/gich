@@ -7,8 +7,8 @@
 package main
 
 import (
-	"flag";
-	"fmt";
+	"flag"
+	"fmt"
 	"os"
 	"syscall"
 	"strings"
