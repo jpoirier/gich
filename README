@@ -24,7 +24,7 @@ Usage
 Examples
 --------
     nix:
-        > gich -a ls cat sh
+        > gich -l ls cat sh
 
     windows:
-        > gich -a ping calc cmd
+        > gich -l ping calc cmd

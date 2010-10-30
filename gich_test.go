@@ -100,7 +100,7 @@ func TestInvalidArg() {
 func TestFlagA() {
 	//             stdin, stdout, stderr
 	c := "gich" + exeExt
-	cmd, err := exec.Run("./gich"+exeExt, []string{"-a"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
+	cmd, err := exec.Run("./gich"+exeExt, []string{"-l"}, nil, "", exec.DevNull, exec.Pipe, exec.DevNull)
 	if err != nil {
 		panic("-a: " + err.String())
 	}
@@ -128,7 +128,7 @@ func TestFlagS1() {
 	if err != nil {
 		panic("-s read:" + err.String())
 	}
-	if string(buf) != "None" {
+	if string(buf) != "None\n" {
 		panic("-s : got " + string(buf))
 	}
 	if err = cmd.Close(); err != nil {
@@ -147,7 +147,7 @@ func TestFlagS2() {
 	if err != nil {
 		panic("-s read:" + err.String())
 	}
-	if string(buf) != "Found" {
+	if string(buf) != "Found\n" {
 		panic("-s : got " + string(buf))
 	}
 	if err = cmd.Close(); err != nil {
