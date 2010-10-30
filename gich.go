@@ -15,7 +15,7 @@ import (
 )
 
 func init() {
-	flag.BoolVar(&aFlag, "a", false, allMsg)
+	flag.BoolVar(&aFlag, "l", false, allMsg)
 	flag.BoolVar(&sFlag, "s", false, statMsg)
 	flag.BoolVar(&hFlag, "h", false, prntMsg)
 	flag.BoolVar(&helpFlag, "help", false, prntMsg)
@@ -53,7 +53,7 @@ inner:		for _, path := range paths {
 					}
 					if _, err := os.Stat(ff); err == nil {
 						if sFlag {
-							userMsg = "Found"
+							userMsg = "Found\n"
 							break outer
 						}
 						if aFlag {
@@ -68,7 +68,7 @@ inner:		for _, path := range paths {
 				f := path + sepPath + file
 				if _, err := os.Stat(f); err == nil {
 					if sFlag {
-						userMsg = "Found"
+						userMsg = "Found\n"
 						break outer
 					}
 					if aFlag {
@@ -82,7 +82,7 @@ inner:		for _, path := range paths {
 		}
 	}
 	if sFlag && userMsg == "" {
-		userMsg = "None"
+		userMsg = "None\n"
 	}
 	fmt.Print(userMsg)
 }
