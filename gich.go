@@ -43,7 +43,7 @@ outer:	for _, file := range files {
 		if strings.Index(file, `\`) >= 0 || strings.Index(file, `/`) >= 0 {
 			continue
 		}
-inner:		for _, path := range paths {
+		for _, path := range paths {
 			if len(exts) != 0 {
 				f := strings.ToLower(file)
 				for _, e := range exts {
