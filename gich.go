@@ -100,7 +100,7 @@ func prolog(files []string) {
 //		path = strings.Replace(path, `\`, `\\`, -1)
 		pathext := os.Getenv("PATHEXT")
 		if pathext != "" {
-			exts = strings.Split(strings.ToLower(pathext), sepChar, -1)
+			exts = strings.SplitN(strings.ToLower(pathext), sepChar, -1)
 			for i, e := range exts {
 				if e == "" || e[0] != '.' {
 					exts[i] = "." + e
@@ -114,7 +114,7 @@ func prolog(files []string) {
 //			paths[i] = `"` + p + `"`
 //		}
 	}
-	paths = strings.Split(path, sepChar, -1)
+	paths = strings.SplitN(path, sepChar, -1)
 	process(files, paths, exts)
 }
 
