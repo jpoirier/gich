@@ -7,18 +7,18 @@
 package main
 
 import (
-	"exec"
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
+	"os/exec"
 	"syscall"
 )
 
-var exeExt string = func () string {
-			if syscall.OS == "windows" {
-				return ".exe"
-			}
-			return ""
-		}()
+var exeExt string = func() string {
+	if syscall.OS == "windows" {
+		return ".exe"
+	}
+	return ""
+}()
 
 func TestFlagH() {
 	//             stdin, stdout, stderr
@@ -155,7 +155,6 @@ func TestFlagS2() {
 	}
 }
 
-
 func TestMisc() {
 	//             stdin, stdout, stderr
 	c := "gich" + exeExt
@@ -176,7 +175,7 @@ func TestMisc() {
 }
 
 // TODO: add benchmark/profiling
-  //func Benchmark() {
+//func Benchmark() {
 //	b.StopTimer()
 
 //	// data creation
@@ -203,14 +202,12 @@ func main() {
 	TestNoArgs()
 	TestInvalidArg()
 	TestMisc()
-//	if syscall.OS == "windows" {
-//	} else {
+	//	if syscall.OS == "windows" {
+	//	} else {
 
-//	}
-//	TestFlagA()
+	//	}
+	//	TestFlagA()
 	TestFlagS1()
 	TestFlagS2()
 	fmt.Println("PASS")
 }
-
-
