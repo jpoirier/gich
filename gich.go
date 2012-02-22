@@ -19,7 +19,7 @@ func init() {
 	flag.BoolVar(&sFlag, "s", false, statMsg)
 	flag.BoolVar(&hFlag, "h", false, prntMsg)
 	flag.BoolVar(&helpFlag, "help", false, prntMsg)
-	if runtime.OS == "windows" {
+	if runtime.GOOS == "windows" {
 		sepChar = `;`
 		// TODO: Is this necessary? windows handles forward slashes
 		// to what level, ie is it different between user and
