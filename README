@@ -1,17 +1,21 @@
 Description
 ------------
-    gich  a cross platform which tool written in Go
+    gich is a cross platform which tool written in Go
 
-    A which utility takes a list of command names and searches the path for each executable file that would be run had
+    A which utility takes a list of command names and searches 
+    the system's path for each executable file that would be run had
     these commands actually been invoked.
 
 Compiling
 ---------
-    make
+    $ hg clone bitbucket.org/jpoirier/gich
+    $ go build gich.go
+    
+    Then move the gich executable somewhere in you system path.
 
 Testing
 -------
-    make test
+
 
 Usage
 -----
